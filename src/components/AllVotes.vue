@@ -8,7 +8,7 @@
 							<p class="text-base leading-tight text-grey-dark">Description</p>
 						</div>
 						<div class="flex justify-center flex-wrap mt-6">
-							<button class="text-base font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple">Voir Plus</button>
+							<a href="/showVote" class="text-base font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple">Voir Plus</a>
 						</div>
 					</div>
 			</div>
