@@ -1,5 +1,6 @@
 import VueRouter from "vue-router";
 import VoteDetails from "../components/VoteDetails";
+import AllVotes from "../components/AllVotes";
 import HelloWord from "../components/HelloWorld";
 
 const router = new VueRouter({
@@ -12,6 +13,10 @@ const router = new VueRouter({
         { path: "/showVote",
           name: "VoteDetails",
           component:VoteDetails
+        },
+        { path: "/allVotes",
+          name: "allVotes",
+          component:AllVotes
         }
     ]
 });
