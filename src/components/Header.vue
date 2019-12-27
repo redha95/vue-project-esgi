@@ -1,8 +1,8 @@
 <template>
     <div id="header">
-        <div id="app-name">Votes</div>
+        <div id="app-name"><a href="/">Votes</a></div>
         <div class="header-nav">
-            <a class="header-item" href="/votes">Mes votes</a>
+            <a class="header-item" href="/allVotes">Mes votes</a>
             <a v-if="isAdmin" class="header-item" href="/votes">Creer une proposition</a>
             <a v-if="isAdmin" class="header-item" href="/users">Creer un utilisateur</a>
             <a class="header-item" id="auth-button" href="/account">Mon compte</a>
