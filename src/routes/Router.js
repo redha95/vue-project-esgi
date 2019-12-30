@@ -12,7 +12,8 @@ const router = new VueRouter({
         },
         { path: "/showVote/:UUID",
           name: "VoteDetails",
-          component:VoteDetails
+          component:VoteDetails,
+          props: true
         },
         { path: "/allVotes",
           name: "allVotes",
