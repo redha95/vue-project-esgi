@@ -1,5 +1,7 @@
 import VueRouter from "vue-router";
 import VoteDetails from "../components/VoteDetails";
+import CreateVote from "../components/CreateVote";
+import NotFound from "../components/NotFound";
 import AllVotes from "../components/AllVotes";
 import HelloWord from "../components/HelloWorld";
 
@@ -18,7 +20,13 @@ const router = new VueRouter({
         { path: "/allVotes",
           name: "allVotes",
           component:AllVotes
-        }
+        },
+        { path: "/createVote",
+          name: "createVote",
+          component:CreateVote
+        },
+        { path: '/404', component: NotFound },  
+        { path: '*', redirect: '/404' },  
     ]
 });
 

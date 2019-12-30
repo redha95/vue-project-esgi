@@ -5,7 +5,7 @@
 			<div class="flex flex-col w-full md:flex-row">
 				<div class="flex flex-row justify-around p-4 font-bold leading-none text-gray-800 uppercase bg-gray-400 rounded md:flex-col md:items-center md:justify-center md:w-1/4">
 				
-					<div class="md:text-3xl">{{vote.start_date}}</div>
+					<div class="md:text-3xl">{{new Date(vote.start_date).toLocaleDateString()}}</div>
 				</div>
 				<div class="p-4 font-normal text-gray-800 md:w-3/4">
 					<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800">{{vote.title}}</h1>
