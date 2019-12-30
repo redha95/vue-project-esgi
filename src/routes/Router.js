@@ -10,7 +10,7 @@ const router = new VueRouter({
           name: "home",
           component:HelloWord
         },
-        { path: "/showVote",
+        { path: "/showVote/:UUID",
           name: "VoteDetails",
           component:VoteDetails,
           props: true

@@ -5,14 +5,14 @@
     <div class="flex flex-col w-full md:flex-row">
         <div class="flex flex-row justify-around p-4 font-bold leading-none text-gray-800 uppercase bg-gray-400 rounded md:flex-col md:items-center md:justify-center md:w-1/4">
           
-            <div class="md:text-3xl">{{$route.params.list.createdAt}}</div>
+            <div class="md:text-3xl">{{vote.start_date}}</div>
         </div>
         <div class="p-4 font-normal text-gray-800 md:w-3/4">
-            <h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800">{{ $route.params.list.title}}</h1>
-            <p class="leading-normal">{{ $route.params.list.description}}</p>
+            <h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800">{{vote.title}}</h1>
+            <p class="leading-normal">{{vote.description}}</p>
             <div class="flex flex-row items-center mt-4 text-gray-700">
                 <div class="w-1/2">
-                    Créer par : {{ $route.params.list.author}}
+                    Créer par : {{vote.author}}
                 </div>
                 <div class="w-1/2 flex justify-end">
                        <a href="/allVotes"> <button class="auth-button border block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:text-white">
@@ -27,12 +27,25 @@
         </div>
     </div>
 </div>
-</div>
 </template>
 
 <script>
 export default {
-    name: "VoteDetails"
+	name: "VoteDetails",
+	data:() => ({
+		vote: {}
+	}),
+	computed: {
+		uuid: this.$route.params.UUID
+	},
+	mounted() {
+		this.$http.get('http://localhost:8011/votes/'+this.uuid,{headers: {Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDbGFpbXMiOm51bGwsIklEIjoxLCJ1dWlkIjoiNWZlZmY1MmYtYjRhZC00MWFkLTUwMmItOTUwNDMxYjc2NDA5IiwiYWNjZXNzX2xldmVsIjoxLCJmaXJzdF9uYW1lIjoiS2FyaW0iLCJsYXN0X25hbWUiOiJCZW56ZW1hIiwiZW1haWwiOiJwbG9wQGJlbnplbWEuaW8iLCJwYXNzIjoiJDJhJDE0JDA5U3dIb04wZi5kZy9CWEg5UjR1NS5RNFVhUkFjSFdkamxMSHVjaWVNaGE4MmN0WUhLb3l5IiwiYmlydGhfZGF0ZSI6IjE5LTEyLTE5ODciLCJhY3RpdmUiOnRydWV9.YTKwmqvNirZJDTdm2Deq1Q5opie2Ka-ePSkxdcjyx0M"}})
+				.then((result) => {
+					this.vote = result.body;
+				}).catch((err) => {
+					alert(err);
+				});
+	},
 }
 </script>
 <style>
