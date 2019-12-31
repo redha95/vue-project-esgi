@@ -35,21 +35,29 @@ export default {
 						Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDbGFpbXMiOm51bGwsIklEIjoxNiwidXVpZCI6IjgxZTgyYjA0LThhNDQtNGVjMC02MmNjLTg5NTIyODhlOGZlZCIsImFjY2Vzc19sZXZlbCI6MSwiZmlyc3RfbmFtZSI6IkthcmltIiwibGFzdF9uYW1lIjoiQmVuemVtYSIsImVtYWlsIjoiazU2c2QyY29zZHNkbXBsb3BAcGxvcGxwby5vbCIsInBhc3MiOiIkMmEkMTQkcDJzNzFyV3Y3MVZENlY1ZG03TnZQTy5FNy5Pdms4bnJXLmVkZFJuMDdzeEpmYS9HM0hFZVciLCJiaXJ0aF9kYXRlIjoiMTktMTItMTk4NyIsImFjdGl2ZSI6dHJ1ZX0.kIOZjY9-Ga074Bc8_jEFH5TGCbY63O5RLBy-hLfzB0E"
 					}
 				})
-				.then((result) => {
-					alert("Vote créer : " + result);
-				}).catch((err) => {
-					alert(err);
+				.then(() => {
+					this.$notify({
+						group: 'foo',
+						title: 'Succès',
+						type: 'success',
+						duration:5000,
+						text: 'Vous venez de créer une proposition!'
+					});
+				}).catch(() => {
+					this.$notify({
+						group: 'foo',
+						title: 'Erreur fonctionnelle',
+						type: 'warn',
+						duration:5000,
+						text: 'Oups, veuillez ré-essayer.'
+					});
 				});
-		}
-	},
-	// mounted() {
-	// 	this.getVote(this.uuid);
-	// },
-	// watch: {
-	// 	uuid: function() {
-	// 		this.getVote(this.uuid);
-	// 	}
-	// },
+				this.$router.push('allVotes')
+		},
+		
+					
+		
+	}
 }
 </script>
 <style>
