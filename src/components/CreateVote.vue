@@ -1,25 +1,11 @@
 <template>
-<div class="leading-loose m-auto w-1/3">
-  <!-- <form id="newVote" @submit="submitVote" class="max-w-xl m-4 p-10 bg-white rounded shadow-xl">
-    <p class="text-gray-800 font-medium">Créer une proposition</p>
-    <div class="">
-      <input class="w-full px-5 py-1 mt-10 text-gray-700 bg-gray-200 rounded" v-model="title" id="title" name="title" type="text" required="" placeholder="Titre" >
-    </div>
-    <div class="mt-2">
-      <textarea class="w-full px-5 mt-5 py-4 text-gray-700 bg-gray-200 rounded h-40 resize-none" v-model="description" id="description" name="description" type="text" required="" placeholder="Description.." ></textarea>
-    </div>
-    <div class="mt-4">
-      <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">Créer</button>
-      <button class="px-4 py-1 text-white font-light ml-3 tracking-wider bg-red-500 rounded" type="submit"><a href="/allVotes">Retour</a></button>
-    </div>
-  </form> -->
+
   <Formik @onSubmit="handleSubmit" :fields="fields"><p class="text-gray-800 font-medium">Créer une proposition</p>
           <Fields
               v-for="field in fields"
               v-bind:key="field.id"
               :field="field"></Fields>
   </Formik>
-</div>
 </template>
 
 <script>

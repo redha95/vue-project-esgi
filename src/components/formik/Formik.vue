@@ -1,9 +1,11 @@
 <template>
+<div class="leading-loose m-auto w-1/3">
     <form class="max-w-xl m-4 p-10 bg-white rounded shadow-xl" @submit="onSubmit">
         <slot></slot>
         <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">Créer</button>
         <button class="px-4 py-1 text-white font-light ml-3 tracking-wider bg-red-500 rounded" type="submit"><a href="/allVotes">Retour</a></button>
     </form>
+</div>
 </template>
 
 <script>
