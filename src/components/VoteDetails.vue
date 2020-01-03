@@ -5,7 +5,7 @@
 			<div class="flex flex-col w-full md:flex-row">
 				<div class="flex flex-row justify-around p-4 font-bold leading-none text-gray-800 uppercase bg-gray-400 rounded md:flex-col md:items-center md:justify-center md:w-1/4">
 				
-					<div class="md:text-3xl">{{vote.start_date}}</div>
+					<div class="md:text-3xl">{{new Date(vote.start_date).toLocaleDateString()}}</div>
 				</div>
 				<div class="p-4 font-normal text-gray-800 md:w-3/4">
 					<h1 class="mb-4 text-4xl font-bold leading-none tracking-tight text-gray-800">{{vote.title}}</h1>
@@ -16,10 +16,17 @@
 						</div>
 						<div class="w-1/2 flex justify-end">
 							<a href="/allVotes"> <button class="auth-button border block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:text-white">
-								<svg class="h-5 w-5 mr-2 fill-current" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="-49 141 512 512" style="enable-background:new -49 141 512 512;" xml:space="preserve">
-									<path id="XMLID_10_" d="M438,372H36.355l72.822-72.822c9.763-9.763,9.763-25.592,0-35.355c-9.763-9.764-25.593-9.762-35.355,0 l-115.5,115.5C-46.366,384.01-49,390.369-49,397s2.634,12.989,7.322,17.678l115.5,115.5c9.763,9.762,25.593,9.763,35.355,0 c9.763-9.763,9.763-25.592,0-35.355L36.355,422H438c13.808,0,25-11.193,25-25S451.808,372,438,372z"></path>
-								</svg>
-								Retour
+									Retour
+								</button>
+								</a>
+								<a href="/createVote"> <button v-bind:donnes="vote" class="auth-button border block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:text-white hover:bg-yellow-600 border-yellow-600 text-yellow-600">
+
+								Modifier
+								</button>
+								</a>
+								<a href="/allVotes"> <button @click="deleteVote" class="auth-button border block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:text-white hover:bg-red-500 border-red-500 text-red-500">
+
+								Supprimer
 								</button>
 								</a>
 						</div>
@@ -49,6 +56,28 @@ export default {
 				}).catch((err) => {
 					alert(err);
 				});
+		},
+		deleteVote(){
+			if(confirm('Êtes vous sur de vouloir supprimer cette proposition?')){
+			this.$http.delete('http://localhost:8011/votes/'+this.$route.params.UUID,{headers: {Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDbGFpbXMiOm51bGwsIklEIjoxLCJ1dWlkIjoiNWZlZmY1MmYtYjRhZC00MWFkLTUwMmItOTUwNDMxYjc2NDA5IiwiYWNjZXNzX2xldmVsIjoxLCJmaXJzdF9uYW1lIjoiS2FyaW0iLCJsYXN0X25hbWUiOiJCZW56ZW1hIiwiZW1haWwiOiJwbG9wQGJlbnplbWEuaW8iLCJwYXNzIjoiJDJhJDE0JDA5U3dIb04wZi5kZy9CWEg5UjR1NS5RNFVhUkFjSFdkamxMSHVjaWVNaGE4MmN0WUhLb3l5IiwiYmlydGhfZGF0ZSI6IjE5LTEyLTE5ODciLCJhY3RpdmUiOnRydWV9.YTKwmqvNirZJDTdm2Deq1Q5opie2Ka-ePSkxdcjyx0M"}})
+				.then(() => {
+					this.$notify({
+						group: 'foo',
+						title: 'Succès',
+						type: 'success',
+						duration:5000,
+						text: 'Vous venez de supprimer une proposition!'
+					});
+				}).catch(() => {
+					this.$notify({
+						group: 'foo',
+						title: 'Erreur fonctionnelle',
+						type: 'warn',
+						duration:5000,
+						text: 'Oups, veuillez ré-essayer.'
+					});
+				});
+		}
 		}
 	},
 	mounted() {

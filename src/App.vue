@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <Header/>  
+    <Header/>
+    <notifications group="foo" position="top center" width="500" />
    <router-view></router-view>
   </div>
 </template>
@@ -28,4 +29,6 @@ export default {
 body{
   margin: 0;
 }
+
+
 </style>

@@ -3,7 +3,7 @@
         <div id="app-name"><a href="/">Votes</a></div>
         <div class="header-nav">
             <a class="header-item" href="/allVotes">Mes votes</a>
-            <a v-if="isAdmin" class="header-item" href="/votes">Creer une proposition</a>
+            <a v-if="isAdmin" class="header-item" href="/createVote">Creer une proposition</a>
             <a v-if="isAdmin" class="header-item" href="/users">Creer un utilisateur</a>
             <a class="header-item" id="auth-button" href="/account">Mon compte</a>
         </div>
@@ -17,7 +17,7 @@ export default {
   },
   data(){
     return{
-        isAdmin: false   
+        isAdmin: true // en attendant   
     }
   }
 }
