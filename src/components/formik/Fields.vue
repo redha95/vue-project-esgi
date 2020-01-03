@@ -3,7 +3,7 @@
         <label
             v-if="field.type != 'select' && field.type != 'radio' && field.type != 'textarea'"
             :for="field.id">{{ field.label }}
-            <input
+            <input class="w-full px-5 py-1 mt-10 text-gray-700 bg-gray-200 rounded"
                 :type="field.type"
                 :name="field.name"
                 :id="field.id"
@@ -31,7 +31,7 @@
         <label
             v-if="field.type == 'textarea'"
             :for="field.id">{{ field.label }}
-            <textarea
+            <textarea class="w-full px-5 mt-5 py-4 text-gray-700 bg-gray-200 rounded h-40 resize-none"
                 :name="field.name"
                 :id="field.id"
                 :placeholder="field.placeholder"
