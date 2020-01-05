@@ -4,6 +4,7 @@ import CreateVote from "../components/CreateVote";
 import NotFound from "../components/NotFound";
 import AllVotes from "../components/AllVotes";
 import HelloWord from "../components/HelloWorld";
+import Authentification from '../components/Authentification';
 
 const router = new VueRouter({
     mode:"history",
@@ -27,6 +28,10 @@ const router = new VueRouter({
         },
         { path: '/404', component: NotFound },  
         { path: '*', redirect: '/404' },  
+        { path: "/account",
+        name: "account",
+        component:Authentification
+      }
     ]
 });
 
