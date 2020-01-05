@@ -19,11 +19,11 @@
 									Retour
 								</button>
 								</a>
-								<a href="/createVote"> <button v-bind:donnes="vote" class="auth-button border block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:text-white hover:bg-yellow-600 border-yellow-600 text-yellow-600">
+								<router-link :to="{ name: 'UpdateVote', params: { UUID: $route.params.UUID } }"><button class="auth-button border block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:text-white hover:bg-yellow-600 border-yellow-600 text-yellow-600">
 
 								Modifier
 								</button>
-								</a>
+								</router-link>
 								<a href="/allVotes"> <button @click="deleteVote" class="auth-button border block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:text-white hover:bg-red-500 border-red-500 text-red-500">
 
 								Supprimer
