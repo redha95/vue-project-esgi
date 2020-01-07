@@ -1,6 +1,6 @@
 <template>
 	<div class="mx-auto  h-screen flex items-center justify-center px-8">
-		<div class="flex flex-col w-full bg-white rounded shadow-lg sm:w-3/4 md:w-1/2 lg:w-3/5">
+		<div class="flex flex-col w-full bg-white rounded shadow-lg sm:w-3/4 md:w-1/2 lg:w-3/5 relative">
 			<div class="w-full h-64 bg-top bg-cover rounded-t" style="background-image: url(https://www.si.com/.image/t_share/MTY4MTkyMjczODM4OTc0ODQ5/cfp-trophy-deitschjpg.jpg)"></div>
 			<div class="flex flex-col w-full md:flex-row">
 				<div class="flex flex-row justify-around p-4 font-bold leading-none text-gray-800 uppercase bg-gray-400 rounded md:flex-col md:items-center md:justify-center md:w-1/4">
@@ -33,6 +33,8 @@
 					</div>
 				</div>
 			</div>
+			<b v-if="vote.uuid_vote" class="absolute top-0 right-0 m-5 text-white">Nombre de votes : {{vote.uuid_vote.length}} </b>
+			<b v-else class="absolute top-0 right-0 m-5 text-white"> Nombre de votes : 0</b>
 		</div>
 	</div>
 </template>
@@ -50,7 +52,7 @@ export default {
 	},
 	methods: {
 		getVote(uuid) {
-			this.$http.get('http://localhost:8011/votes/'+uuid,{headers: {Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDbGFpbXMiOm51bGwsIklEIjoxLCJ1dWlkIjoiNWZlZmY1MmYtYjRhZC00MWFkLTUwMmItOTUwNDMxYjc2NDA5IiwiYWNjZXNzX2xldmVsIjoxLCJmaXJzdF9uYW1lIjoiS2FyaW0iLCJsYXN0X25hbWUiOiJCZW56ZW1hIiwiZW1haWwiOiJwbG9wQGJlbnplbWEuaW8iLCJwYXNzIjoiJDJhJDE0JDA5U3dIb04wZi5kZy9CWEg5UjR1NS5RNFVhUkFjSFdkamxMSHVjaWVNaGE4MmN0WUhLb3l5IiwiYmlydGhfZGF0ZSI6IjE5LTEyLTE5ODciLCJhY3RpdmUiOnRydWV9.YTKwmqvNirZJDTdm2Deq1Q5opie2Ka-ePSkxdcjyx0M"}})
+			this.$http.get('http://localhost:8011/votes/'+uuid,{headers: {Authorization: "Bearer " + localStorage.getItem("userToken")}})
 				.then((result) => {
 					this.vote = result.body;
 				}).catch((err) => {
@@ -59,7 +61,7 @@ export default {
 		},
 		deleteVote(){
 			if(confirm('Êtes vous sur de vouloir supprimer cette proposition?')){
-			this.$http.delete('http://localhost:8011/votes/'+this.$route.params.UUID,{headers: {Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDbGFpbXMiOm51bGwsIklEIjoxLCJ1dWlkIjoiNWZlZmY1MmYtYjRhZC00MWFkLTUwMmItOTUwNDMxYjc2NDA5IiwiYWNjZXNzX2xldmVsIjoxLCJmaXJzdF9uYW1lIjoiS2FyaW0iLCJsYXN0X25hbWUiOiJCZW56ZW1hIiwiZW1haWwiOiJwbG9wQGJlbnplbWEuaW8iLCJwYXNzIjoiJDJhJDE0JDA5U3dIb04wZi5kZy9CWEg5UjR1NS5RNFVhUkFjSFdkamxMSHVjaWVNaGE4MmN0WUhLb3l5IiwiYmlydGhfZGF0ZSI6IjE5LTEyLTE5ODciLCJhY3RpdmUiOnRydWV9.YTKwmqvNirZJDTdm2Deq1Q5opie2Ka-ePSkxdcjyx0M"}})
+			this.$http.delete('http://localhost:8011/votes/'+this.$route.params.UUID,{headers: {Authorization: "Bearer " + localStorage.getItem("userToken")}})
 				.then(() => {
 					this.$notify({
 						group: 'foo',

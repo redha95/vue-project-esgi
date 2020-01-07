@@ -12,24 +12,48 @@ const router = new VueRouter({
     routes: [
         { path: "/",
           name: "home",
-          component:HelloWord
+          component:HelloWord,
         },
         { path: "/showVote/:UUID",
           name: "VoteDetails",
           component:VoteDetails,
-          props: true
+          props: true,
+          beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("userToken") == null) {
+              next('/account')
+            }
+            else next()
+          }
         },
         { path: "/allVotes",
           name: "allVotes",
-          component:AllVotes
+          component:AllVotes,
+          beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("userToken") == null) {
+              next('/account')
+            }
+            else next()
+          }
         },
         { path: "/createVote",
           name: "createVote",
-          component:CreateVote
+          component:CreateVote,
+          beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("userToken") == null) {
+              next('/account')
+            }
+            else next()
+          }
         },
         { path: "/updateVote/:UUID",
           name: "UpdateVote",
-          component:UpdateVote
+          component:UpdateVote,
+          beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("userToken") == null) {
+              next('/account')
+            }
+            else next()
+          }
         },
         { path: "/account",
         name: "account",

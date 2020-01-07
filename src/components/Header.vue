@@ -2,10 +2,15 @@
     <div id="header">
         <div id="app-name"><a href="/">Votes</a></div>
         <div class="header-nav">
-            <a class="header-item" href="/allVotes">Mes votes</a>
-            <a v-if="isAdmin" class="header-item" href="/createVote">Creer une proposition</a>
-            <a v-if="isAdmin" class="header-item" href="/users">Creer un utilisateur</a>
-            <a class="header-item" id="auth-button" href="/account">Mon compte</a>
+          <div v-if="isNotLogged">
+            <a v-if="isNotLogged" class="header-item" id="auth-button" href="/account">Se connecter / S'inscrire</a>
+          </div>
+           <div v-else>
+              <a class="header-item" href="/allVotes">Mes votes</a>
+              <a v-if="isAdmin" class="header-item" href="/createVote">Creer une proposition</a>
+              <a v-if="isAdmin" class="header-item" href="/users">Creer un utilisateur</a>
+              <a class="header-item" id="auth-button" href="/account">Mon compte</a>
+            </div>
         </div>
   </div>
 </template>
@@ -18,6 +23,7 @@ export default {
   data(){
     return{
         isAdmin: true, // en attendant  
+        isNotLogged: localStorage.getItem("userToken") == null
     }
   }
 }

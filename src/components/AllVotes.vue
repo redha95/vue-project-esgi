@@ -5,8 +5,10 @@
 				<div class="border m-6 rounded-lg  bg-white shadow-xl rounded-lg overflow-hidden">
 					<div class="sm:flex sm:items-center px-6 py-4">
 						<div class="text-center sm:text-left sm:flex-grow">
-							<div class="mb-4">
+							<div class="mb-4 relative">
 								<p class="text-3xl leading-tight mb-3">{{vote.title}}</p>
+									<b v-if="vote.uuid_vote" class="absolute right-0 top-0"> Nombre de votes : {{vote.uuid_vote.length}}</b>
+									<b v-else class="absolute right-0 top-0"> Nombre de votes : 0</b>
 								<p class="text-base leading-tight text-grey-dark">{{vote.description}}</p>
 							</div>
 							<div class="flex justify-center flex-wrap mt-6">
@@ -30,13 +32,14 @@ export default {
 				title: "titre",
 				description: "Description",
 				start_date: "plop",
-				end_date: "plop"
+				end_date: "plop",
+				uuid_vote: []
 			}
 		]
 	}),
 	methods: {
 		setdata(){
-			this.$http.get('http://localhost:8011/votes/',{headers: {Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDbGFpbXMiOm51bGwsIklEIjoxLCJ1dWlkIjoiNWZlZmY1MmYtYjRhZC00MWFkLTUwMmItOTUwNDMxYjc2NDA5IiwiYWNjZXNzX2xldmVsIjoxLCJmaXJzdF9uYW1lIjoiS2FyaW0iLCJsYXN0X25hbWUiOiJCZW56ZW1hIiwiZW1haWwiOiJwbG9wQGJlbnplbWEuaW8iLCJwYXNzIjoiJDJhJDE0JDA5U3dIb04wZi5kZy9CWEg5UjR1NS5RNFVhUkFjSFdkamxMSHVjaWVNaGE4MmN0WUhLb3l5IiwiYmlydGhfZGF0ZSI6IjE5LTEyLTE5ODciLCJhY3RpdmUiOnRydWV9.YTKwmqvNirZJDTdm2Deq1Q5opie2Ka-ePSkxdcjyx0M"}})
+			this.$http.get('http://localhost:8011/votes/',{headers: {Authorization: "Bearer "+localStorage.getItem("userToken") }})
 				.then((result) => {
 					this.votes = result.body;
 				}).catch((err) => {
