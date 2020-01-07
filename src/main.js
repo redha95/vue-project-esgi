@@ -5,9 +5,10 @@ import VueResource from 'vue-resource';
 import router from './routes/Router.js';
 import '@/assets/css/tailwind.css'
 import Notifications from 'vue-notification'
+import axios from 'axios';
 
 Vue.use(Notifications)
-
+Vue.use(axios)
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
