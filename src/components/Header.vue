@@ -22,7 +22,7 @@ export default {
   },
   data(){
     return{
-        isAdmin: true, // en attendant  
+        isAdmin: localStorage.getItem("accessLevel") == "1", // en attendant  
         isNotLogged: localStorage.getItem("userToken") == null
     }
   }
