@@ -5,7 +5,7 @@ import UpdateVote from "../components/UpdateVote";
 import NotFound from "../components/NotFound";
 import AllVotes from "../components/AllVotes";
 import HelloWord from "../components/HelloWorld";
-import Authentification from '../components/Authentification';
+import Account from '../components/Account';
 
 const router = new VueRouter({
     mode:"history",
@@ -31,12 +31,12 @@ const router = new VueRouter({
           name: "UpdateVote",
           component:UpdateVote
         },
-        { path: '/404', component: NotFound },  
-        { path: '*', redirect: '/404' },  
         { path: "/account",
         name: "account",
-        component:Authentification
-      }
+        component:Account
+       },
+        { path: '/404', component: NotFound },  
+        { path: '*', redirect: '/404' },  
     ]
 });
 

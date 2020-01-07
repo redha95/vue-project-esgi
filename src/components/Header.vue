@@ -17,7 +17,7 @@ export default {
   },
   data(){
     return{
-        isAdmin: true // en attendant   
+        isAdmin: true, // en attendant  
     }
   }
 }
