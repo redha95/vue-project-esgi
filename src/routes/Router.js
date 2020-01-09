@@ -51,6 +51,8 @@ const router = new VueRouter({
           beforeEnter: (to, from, next) => {
             if (localStorage.getItem("userToken") == null) {
               next('/account')
+            } else if(localStorage.getItem("accessLevel") == "0"){
+              next('/allVotes')
             }
             else next()
           }

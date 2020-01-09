@@ -1,4 +1,4 @@
-<template>
+"<template>
 	<div class="mx-auto  h-screen flex items-center justify-center px-8">
 		<div class="flex flex-col w-full bg-white rounded shadow-lg sm:w-3/4 md:w-1/2 lg:w-3/5 relative">
 			<div class="w-full h-64 bg-top bg-cover rounded-t" style="background-image: url(https://www.si.com/.image/t_share/MTY4MTkyMjczODM4OTc0ODQ5/cfp-trophy-deitschjpg.jpg)"></div>
@@ -19,12 +19,17 @@
 									Retour
 								</button>
 								</a>
-								<router-link :to="{ name: 'UpdateVote', params: { UUID: $route.params.UUID } }"><button class="auth-button border block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:text-white hover:bg-yellow-600 border-yellow-600 text-yellow-600">
+								<router-link v-if="isAdmin" :to="{ name: 'UpdateVote', params: { UUID: $route.params.UUID } }"><button class="auth-button border block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:text-white hover:bg-yellow-600 border-yellow-600 text-yellow-600">
 
 								Modifier
 								</button>
 								</router-link>
-								<a href="/allVotes"> <button @click="deleteVote" class="auth-button border block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:text-white hover:bg-red-500 border-red-500 text-red-500">
+								<a v-else href="/allVotes"><button @click="submitVote" class="auth-button border block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:text-white hover:bg-yellow-600 border-yellow-600 text-yellow-600">
+
+								Votez
+								</button>
+								</a>
+								<a v-if="isAdmin" href="/allVotes"> <button @click="deleteVote" class="auth-button border block rounded-sm font-bold py-4 px-6 mr-2 flex items-center hover:text-white hover:bg-red-500 border-red-500 text-red-500">
 
 								Supprimer
 								</button>
@@ -43,7 +48,8 @@
 export default {
 	name: "VoteDetails",
 	data:() => ({
-		vote: {}
+		vote: {},
+		isAdmin:localStorage.getItem("accessLevel") == "1"
 	}),
 	computed: {
 		uuid() {
@@ -80,6 +86,26 @@ export default {
 					});
 				});
 		}
+		},
+		submitVote() {
+			this.$http.put('http://localhost:8011/votes/'+this.$route.params.UUID,{},{headers: {Authorization: "Bearer "+localStorage.getItem("userToken") }})
+				.then(() => {
+					this.$notify({
+						group: 'foo',
+						title: 'Succès',
+						type: 'success',
+						duration:5000,
+						text: 'Vous venez de voter pour une proposition!'
+					});
+				}).catch(() => {
+					this.$notify({
+						group: 'foo',
+						title: 'Erreur fonctionnelle',
+						type: 'warn',
+						duration:5000,
+						text: 'Oups, veuillez ré-essayer.'
+					});
+				});
 		}
 	},
 	mounted() {
