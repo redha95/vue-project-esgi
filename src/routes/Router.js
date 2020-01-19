@@ -6,6 +6,8 @@ import NotFound from "../components/NotFound";
 import AllVotes from "../components/AllVotes";
 import HelloWord from "../components/HelloWorld";
 import Account from '../components/Account';
+import ProfilUser from '../components/ProfilUser';
+import UpdateProfil from '../components/UpdateProfil';
 
 const router = new VueRouter({
     mode:"history",
@@ -18,6 +20,16 @@ const router = new VueRouter({
           name: "VoteDetails",
           component:VoteDetails,
           props: true,
+          beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("userToken") == null) {
+              next('/account')
+            }
+            else next()
+          }
+        },
+        { path: "/profil/:UUID",
+          name: "ProfilUser",
+          component:ProfilUser,
           beforeEnter: (to, from, next) => {
             if (localStorage.getItem("userToken") == null) {
               next('/account')
@@ -54,6 +66,16 @@ const router = new VueRouter({
             } else if(localStorage.getItem("accessLevel") == "0"){
               next('/allVotes')
             }
+            else next()
+          }
+        },
+        { path: "/updateProfil/:UUID",
+          name: "UpdateProfil",
+          component:UpdateProfil,
+          beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("userToken") == null) {
+              next('/account')
+            } 
             else next()
           }
         },
