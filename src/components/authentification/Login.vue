@@ -55,7 +55,7 @@ export default {
 		"pass": e.password
 		})
       .then((response) => {
-		localStorage.setItem('userToken',response.data) 
+		localStorage.setItem('userToken',response.data.bearer) 
 		localStorage.setItem('accessLevel',response.data.access_level) 
 		this.$notify({
 				group: 'foo',
