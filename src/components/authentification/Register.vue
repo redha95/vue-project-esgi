@@ -12,7 +12,6 @@
 
 import Formik from '../formik/Formik';
 import Fields from '../formik/Fields';
-import axios from 'axios';
 
 export default {
 	name: "Register",
@@ -23,7 +22,7 @@ export default {
 	data: () => ({
 		typeField:
 			{
-				buttonSubmit:"S'inscrire    "
+				buttonSubmit:"S'inscrire"
 			},
 		fields: [
             {
@@ -84,33 +83,7 @@ export default {
 	}),
 	methods: {
 		handleSubmit: function(e) {
-        /* eslint-disable no-console */
-        console.log(e);
-        axios.post('http://localhost:8011/users/',{
-            "first_name": e.firstname,
-            "last_name": e.lastname,
-            "email":e.email,
-            "pass": e.password,
-            "birth_date": e.birthDate,
-        })
-        .then(() => {
-            this.$emit('registred', 'true')
-            this.$notify({
-                group: 'foo',
-                title: 'Felicitation',
-                type: 'success',
-                duration:5000,
-                text: 'Vous êtes inscrit!'
-            });
-        }, (error) => {
-			this.$notify({
-				group: 'foo',
-				title: 'Erreur',
-				type: 'error',
-				duration:5000,
-				text: error.response.data
-			});
-        });
+			this.$store.dispatch('users/register',{user: e,vm: this})
 	}
   }
 }
