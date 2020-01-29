@@ -8,6 +8,7 @@ import HelloWord from "../components/HelloWorld";
 import Account from '../components/Account';
 import ProfilUser from '../components/ProfilUser';
 import UpdateProfil from '../components/UpdateProfil';
+import Register from '../components/authentification/Register';
 
 const router = new VueRouter({
     mode:"history",
@@ -72,6 +73,16 @@ const router = new VueRouter({
         { path: "/updateProfil/:UUID",
           name: "UpdateProfil",
           component:UpdateProfil,
+          beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("userToken") == null) {
+              next('/account')
+            } 
+            else next()
+          }
+        },
+        { path: "/newuser",
+          name: "New Profil",
+          component:Register,
           beforeEnter: (to, from, next) => {
             if (localStorage.getItem("userToken") == null) {
               next('/account')
