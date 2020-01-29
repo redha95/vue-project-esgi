@@ -80,9 +80,15 @@ const router = new VueRouter({
           }
         },
         { path: "/account",
-        name: "account",
-        component:Account
-       },
+          name: "account",
+          component:Account,
+          beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("userToken") != null) {
+              next('/profil/'+localStorage.getItem("uuid"))
+            } 
+            else next()
+          }
+        },
         { path: '/404', component: NotFound },  
         { path: '*', redirect: '/404' },  
     ]

@@ -25,8 +25,6 @@ export default {
 			{
 			}
 		],
-		token:localStorage.getItem("userToken")
-		,
 		typeField:
 			{
 				buttonSubmit:"Modifier",
@@ -65,6 +63,9 @@ export default {
 	computed: {
 		uuid() {
 			return this.$route.params.UUID
+		},
+		token() {
+			return localStorage.getItem("userToken")
 		}
 	},
 	methods: {
