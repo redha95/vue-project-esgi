@@ -4,7 +4,7 @@ import CreateVote from "../components/CreateVote";
 import UpdateVote from "../components/UpdateVote";
 import NotFound from "../components/NotFound";
 import AllVotes from "../components/AllVotes";
-import HelloWord from "../components/HelloWorld";
+import Hello from "../components/Hello";
 import Account from '../components/Account';
 import ProfilUser from '../components/ProfilUser';
 import UpdateProfil from '../components/UpdateProfil';
@@ -15,7 +15,7 @@ const router = new VueRouter({
     routes: [
         { path: "/",
           name: "home",
-          component:HelloWord,
+          component:Hello,
         },
         { path: "/showVote/:UUID",
           name: "VoteDetails",

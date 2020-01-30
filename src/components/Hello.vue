@@ -3,16 +3,15 @@
   <div class="hello">
 		<img alt="Vue logo" class="m-auto" src="../assets/logo.png">
     <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
+      Bienvenue sur le site du vote des budgets participatifs
+      <a href="/allvotes">Liste des propositions</a>.
     </p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'Hello',
   props: {
     msg: String
   }
