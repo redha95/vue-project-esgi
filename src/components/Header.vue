@@ -30,7 +30,10 @@ export default {
   methods:{
      disconnect:function(){
             localStorage.removeItem("userToken");
+            localStorage.removeItem("accessLevel");
+            localStorage.removeItem("uuid");
             this.isNotLogged = true;
+            window.location.href = "/";
       }
   }
 }

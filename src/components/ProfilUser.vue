@@ -7,22 +7,22 @@
             
             <div class="py-2">
 				<svg class="h-6 w-6 text-grey mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M12 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm9 11a1 1 0 0 1-2 0v-2a3 3 0 0 0-3-3H8a3 3 0 0 0-3 3v2a1 1 0 0 1-2 0v-2a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v2z"/></svg>
-                <h3 class="font-bold text-2xl mb-1">{{votes.first_name}} {{votes.last_name}}</h3>
+                <h3 class="font-bold text-2xl mb-1">{{user.first_name}} {{user.last_name}}</h3>
                 <div class="inline-flex text-grey-dark sm:flex items-center">
-                    {{votes.email}}
+                    {{user.email}}
                 </div>
             </div>
         </div>
     </div>
     <div class="px-4 py-4">
         <div class="flex items-center text-grey-darker mb-4">
-            <span><strong class="text-black">Date d'anniversaire:</strong> {{votes.birth_date}}</span>
+            <span><strong class="text-black">Date d'anniversaire:</strong> {{user.birth_date}}</span>
         </div>
         <div class="flex">
-            <div v-if="votes.access_level == 0" class="flex flex-row-reverse justify-end mr-2">
+            <div v-if="user.access_level == 0" class="flex flex-row-reverse justify-end mr-2">
                 <span><strong class="text-black">Role:</strong> Utilisateur</span>
             </div>
-             <div v-else-if="votes.access_level == 1" class="flex flex-row-reverse justify-end mr-2">
+             <div v-else-if="user.access_level == 1" class="flex flex-row-reverse justify-end mr-2">
                 <span><strong class="text-black">Role:</strong> Administrateur</span>
             </div>
         </div>
@@ -38,11 +38,8 @@
 export default {
 	name: "ProfilUser",
 	data: () => ({
-        token:localStorage.getItem("userToken"),
-		votes:[
-			{
-			}
-        ],
+        token: localStorage.getItem("userToken"),
+        user: {}
 	}),
 	computed: {
 		uuid() {
@@ -51,12 +48,7 @@ export default {
 	},
 	methods: {
 		setdataprofil(uuid){
-			this.$http.get('http://localhost:8011/users/'+uuid,{headers: {Authorization: "Bearer "+localStorage.getItem("userToken")}})
-				.then((result) => {
-                    this.votes = result.body;
-				}).catch((err) => {
-					alert(err);
-				});
+            this.$store.dispatch('users/getuser',{uuid:uuid,vm:this});
         }
 	},
 	mounted() {

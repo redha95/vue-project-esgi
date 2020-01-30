@@ -16,5 +16,10 @@ export default {
             "pass": user.password,
             "birth_date": user.birthDate,
         }).catch();
+    },
+    getuser(uuid){
+        return axios.get('http://localhost:8011/users/'+uuid,{
+            headers:  {Authorization: "Bearer "+localStorage.getItem("userToken")}
+        }).catch();
     }
 };

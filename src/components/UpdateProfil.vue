@@ -21,10 +21,7 @@ export default {
 		Fields
 	},
 	data: () => ({
-		votes:[
-			{
-			}
-		],
+		user:{},
 		typeField:
 			{
 				buttonSubmit:"Modifier",
@@ -69,13 +66,13 @@ export default {
 		}
 	},
 	methods: {
-		handleSubmit: function() {
+		handleSubmit: function(e) {
 			//let token = localStorage.getItem("userToken");
 			//this.$notify({title:'dsf',duration:5000,text:this.$route.params.UUID})
 			this.$http.put('http://localhost:8011/users/'+this.uuid,{
-					first_name:this.$data.fields[0].value,				
-					last_name:this.$data.fields[1].value,
-					email:this.$data.fields[2].value,
+					first_name: e.nom,				
+					last_name: e.prenom,
+					email: e.email
 					},{
 					headers: {
 						Authorization: "Bearer " + this.token
@@ -89,6 +86,7 @@ export default {
 						duration:5000,
 						text: 'Vous venez de modifier votre profil!'
 					});
+					this.$router.push({ name: 'ProfilUser', params: { UUID: this.uuid }})
 				}).catch((err) => {
 					
 					this.$notify({
@@ -99,20 +97,10 @@ export default {
 						text: err
 					});
 				});
-				this.$router.push({ name: 'ProfilUser', params: { UUID: this.uuid }})
-				this.$router.go(this.$router.currentRoute)
 		},
 		setdataprofil(uuid) {
-			this.$http.get('http://localhost:8011/users/'+uuid,{headers: {Authorization: "Bearer " + this.token}})
-				.then((result) => {
-					this.votes = result.body,
-					this.fields[0].value = result.body.first_name,
-					this.fields[1].value = result.body.last_name,
-					this.fields[2].value = result.body.email,
-					this.typeField.routeButtonRetour = "/profil/"+uuid
-				}).catch((err) => {
-					alert(err);
-				});
+			this.$store.dispatch('users/getuser',{uuid:uuid,vm:this});
+			this.typeField.routeButtonRetour = "/profil/"+uuid
 		}
 					
 		
@@ -121,8 +109,10 @@ export default {
 		this.setdataprofil(this.uuid);
 	},
     watch: { 
-        type: function() { // watch it
-            this.setdataprofil(this.uuid);
+        user: function() { // watch it
+			this.fields[0].value = this.user.first_name;
+			this.fields[1].value = this.user.last_name;
+			this.fields[2].value = this.user.email;
         }
     },
 }

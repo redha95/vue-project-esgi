@@ -12,7 +12,6 @@
 
 import Formik from '../formik/Formik';
 import Fields from '../formik/Fields';
-import axios from 'axios';
 
 export default {
 	name: "Login",
@@ -48,37 +47,9 @@ export default {
 	}),
 	methods: {
 		handleSubmit: function(e) {
-      axios.post('http://localhost:8011/login/',{
-		"email": e.email,
-		"pass": e.password
-		})
-      .then((response) => {
-		localStorage.setItem('userToken',response.data.bearer) 
-		localStorage.setItem('accessLevel',response.data.access_level) 
-		localStorage.setItem('uuid',response.data.uuid) 
-		this.$notify({
-				group: 'foo',
-				title: 'Bienvenue',
-				type: 'success',
-				duration:1000,
-				text: 'Vous êtes connecté!'
-		});
-		setTimeout(function(){
-			window.location.href = "/";
-		}, 1000);
-      }, (error) => {
-        if(error.response.status == 404){
-			this.$notify({
-				group: 'foo',
-				title: 'Erreur',
-				type: 'error',
-				duration:5000,
-				text: error.response.data
-			});
-        }
-      });
+			this.$store.dispatch('users/login',{user:e,vm:this})
+		}
 	}
-  }
 }
 </script>
 <style>
