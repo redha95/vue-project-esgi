@@ -22,12 +22,22 @@ export default {
             headers:  {Authorization: "Bearer "+localStorage.getItem("userToken")}
         }).catch();
     },
+    getusers(){
+        return axios.get('http://localhost:8011/users/',{
+            headers:  {Authorization: "Bearer "+localStorage.getItem("userToken")}
+        }).catch();
+    },
     updateUser(user,uuid){
         return axios.put('http://localhost:8011/users/'+uuid,{
             first_name: user.nom,
             last_name: user.prenom,
             email: user.email,
         },{
+            headers:  {Authorization: "Bearer "+localStorage.getItem("userToken")}
+        }).catch();
+    },
+    deleteUser(uuid){
+        return axios.delete('http://localhost:8011/users/'+uuid,{
             headers:  {Authorization: "Bearer "+localStorage.getItem("userToken")}
         }).catch();
     }

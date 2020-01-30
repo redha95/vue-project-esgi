@@ -27,14 +27,7 @@ export default {
 	name: "AllVotes",
 	data: () => ({
 		votes:[
-			{
-				UUID: 77777,
-				title: "titre",
-				description: "Description",
-				start_date: "plop",
-				end_date: "plop",
-				uuid_vote: []
-			}
+			{}
 		]
 	}),
 	methods: {

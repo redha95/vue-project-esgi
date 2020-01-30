@@ -32,10 +32,32 @@ export default {
           commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data.msg })
         });
       },
+      getusers({commit}, payload) {
+        usersApi.getusers()
+        .then((response) => {
+          commit('userList' , {
+            result: response,
+            vm: payload.vm
+          })
+        }, (error) => {
+          commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data.msg })
+        });
+      },
       getuser({commit}, payload) {
         usersApi.getuser(payload.uuid)
         .then((response) => {
-          commit('userList' , {
+          commit('user' , {
+            result: response,
+            vm: payload.vm
+          })
+        }, (error) => {
+          commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data.msg })
+        });
+      },
+      deleteuser({commit}, payload) {
+        usersApi.deleteUser(payload.uuid)
+        .then((response) => {
+          commit('deleteuser' , {
             result: response,
             vm: payload.vm
           })
@@ -126,8 +148,11 @@ export default {
             text: 'Vous êtes inscrit!'
         });
       },
-      userList(state, payload) {
+      user(state, payload) {
         payload.vm.user = payload.result.data;
+      },
+      userList(state, payload) {
+        payload.vm.users = payload.result.data;
       },
       userUpdate(state, payload) {
         payload.vm.$notify({
@@ -138,6 +163,16 @@ export default {
           text: 'Vous venez de modifier votre profil!'
         });
         payload.vm.$router.push({ name: 'ProfilUser', params: { UUID: payload.uuid }})
+      },
+      deleteuser(state, payload) {
+        payload.vm.$notify({
+          group: 'foo',
+          title: 'Succès',
+          type: 'success',
+          duration:5000,
+          text: 'Vous venez de supprimer un profil!'
+        });
+        payload.vm.$router.push({ name: 'AllUsers' })
       }
     }
 }

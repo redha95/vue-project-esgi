@@ -8,6 +8,7 @@
            <div v-else>
               <a class="header-item" href="/allVotes">Mes votes</a>
               <a v-if="isAdmin" class="header-item" href="/createVote">Creer une proposition</a>
+              <a v-if="isAdmin" class="header-item" href="/profils">Tous les utilisateurs</a>
               <a v-if="isAdmin" class="header-item" href="/newuser">Creer un utilisateur</a>
               <a class="header-item" id="auth-button" href="/account">Mon compte</a>
               <button class="px-4 py-1 text-white font-light ml-3 tracking-wider bg-red-500 rounded"  v-on:click="disconnect">Se deconnecter</button>

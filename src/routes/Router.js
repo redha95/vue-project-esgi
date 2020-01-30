@@ -4,6 +4,7 @@ import CreateVote from "../components/CreateVote";
 import UpdateVote from "../components/UpdateVote";
 import NotFound from "../components/NotFound";
 import AllVotes from "../components/AllVotes";
+import AllUsers from "../components/AllUsers";
 import Hello from "../components/Hello";
 import Account from '../components/Account';
 import ProfilUser from '../components/ProfilUser';
@@ -21,6 +22,16 @@ const router = new VueRouter({
           name: "VoteDetails",
           component:VoteDetails,
           props: true,
+          beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("userToken") == null) {
+              next('/account')
+            }
+            else next()
+          }
+        },
+        { path: "/profils/",
+          name: "AllUsers",
+          component:AllUsers,
           beforeEnter: (to, from, next) => {
             if (localStorage.getItem("userToken") == null) {
               next('/account')
