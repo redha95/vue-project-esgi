@@ -58,54 +58,19 @@ export default {
 	},
 	methods: {
 		getVote(uuid) {
-			this.$http.get('http://localhost:8011/votes/'+uuid,{headers: {Authorization: "Bearer " + localStorage.getItem("userToken")}})
-				.then((result) => {
-					this.vote = result.body;
-				}).catch((err) => {
-					alert(err);
-				});
+			this.$store.dispatch('votes/getvote',{uuid:uuid,vm:this});
 		},
 		deleteVote(){
 			if(confirm('Êtes vous sur de vouloir supprimer cette proposition?')){
-			this.$http.delete('http://localhost:8011/votes/'+this.$route.params.UUID,{headers: {Authorization: "Bearer " + localStorage.getItem("userToken")}})
-				.then(() => {
-					this.$notify({
-						group: 'foo',
-						title: 'Succès',
-						type: 'success',
-						duration:5000,
-						text: 'Vous venez de supprimer une proposition!'
-					});
-				}).catch(() => {
-					this.$notify({
-						group: 'foo',
-						title: 'Erreur fonctionnelle',
-						type: 'warn',
-						duration:5000,
-						text: 'Oups, veuillez ré-essayer.'
-					});
-				});
-		}
+				this.$store.dispatch('votes/deletevote',{vote:{},
+					uuid:this.uuid,
+					vm:this});
+			}
 		},
 		submitVote() {
-			this.$http.put('http://localhost:8011/votes/'+this.$route.params.UUID,{},{headers: {Authorization: "Bearer "+localStorage.getItem("userToken") }})
-				.then(() => {
-					this.$notify({
-						group: 'foo',
-						title: 'Succès',
-						type: 'success',
-						duration:5000,
-						text: 'Vous venez de voter pour une proposition!'
-					});
-				}).catch(() => {
-					this.$notify({
-						group: 'foo',
-						title: 'Erreur fonctionnelle',
-						type: 'warn',
-						duration:5000,
-						text: 'Oups, veuillez ré-essayer.'
-					});
-				});
+			this.$store.dispatch('votes/updatevote',{vote:{},
+				uuid:this.uuid,
+				vm:this});
 		}
 	},
 	mounted() {

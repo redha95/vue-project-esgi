@@ -81,7 +81,7 @@ const router = new VueRouter({
           }
         },
         { path: "/newuser",
-          name: "New Profil",
+          name: "NewProfil",
           component:Register,
           beforeEnter: (to, from, next) => {
             if (localStorage.getItem("userToken") == null) {

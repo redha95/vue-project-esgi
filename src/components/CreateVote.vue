@@ -47,39 +47,14 @@ export default {
 		]
 	}),
 	methods: {
-		handleSubmit: function() {
-			this.$http.post('http://localhost:8011/votes/',{
-					title:this.$data.fields[0].value,				
-					desc:this.$data.fields[1].value,
+		handleSubmit: function(e) {
+			this.$store.dispatch('votes/create',{vote:{
+					title: e.title,
+					description: e.description,
 					start_date: new Date(),
-					end_date: new Date(new Date().getTime()+(10*24*60*60*1000)) // date d'expiration 10jr apres
-					},{
-					headers: {
-						Authorization: "Bearer " + localStorage.getItem("userToken")
-					}
-				})
-				.then(() => {
-					this.$notify({
-						group: 'foo',
-						title: 'Succès',
-						type: 'success',
-						duration:5000,
-						text: 'Vous venez de créer une proposition!'
-					});
-				}).catch(() => {
-					this.$notify({
-						group: 'foo',
-						title: 'Erreur fonctionnelle',
-						type: 'warn',
-						duration:5000,
-						text: 'Oups, veuillez ré-essayer.'
-					});
-				});
-				this.$router.push('allVotes')
+					end_date: new Date(new Date().getTime()+(10*24*60*60*1000))
+				},vm: this});
 		},
-		
-					
-		
 	}
 }
 </script>

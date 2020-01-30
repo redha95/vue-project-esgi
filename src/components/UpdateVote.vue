@@ -53,47 +53,18 @@ export default {
 		}
 	},
 	methods: {
-		handleSubmit: function() {
-			this.$http.put('http://localhost:8011/votes/'+this.$route.params.UUID,{
-					title:this.$data.fields[0].value,				
-					desc:this.$data.fields[1].value,
-					start_date:this.vote.start_date,
-					end_date:this.vote.end_date
-					},{
-					headers: {
-						Authorization: "Bearer "+ localStorage.getItem("userToken")
-					}
-				})
-				.then(() => {
-					this.$notify({
-						group: 'foo',
-						title: 'Succès',
-						type: 'success',
-						duration:5000,
-						text: 'Vous venez de modifier une proposition!'
-					});
-				}).catch(() => {
-					this.$notify({
-						group: 'foo',
-						title: 'Erreur fonctionnelle',
-						type: 'warn',
-						duration:5000,
-						text: 'Oups, veuillez ré-essayer.'
-					});
-				});
-				this.$router.push({ name: 'VoteDetails', params: { UUID: this.$route.params.UUID }})
-				this.$router.go(this.$router.currentRoute)
+		handleSubmit: function(e) {
+			this.$store.dispatch('votes/updatevote',{vote:{
+				title: e.title,
+				description: e.description,
+				start_date: this.vote.start_date,
+				end_date: this.vote.end_date},
+				uuid:this.uuid,
+				vm:this});
 		},
 		getVote(uuid) {
-			this.$http.get('http://localhost:8011/votes/'+uuid,{headers: {Authorization: "Bearer "+localStorage.getItem("userToken")}})
-				.then((result) => {
-					this.vote = result.body,
-					this.fields[0].value = result.body.title,
-					this.fields[1].value = result.body.description
-					this.typeField.routeButtonRetour = "/showVote/"+ this.$route.params.UUID
-				}).catch((err) => {
-					alert(err);
-				});
+			this.$store.dispatch('votes/getvote',{uuid:uuid,vm:this});
+			this.typeField.routeButtonRetour = "/showVote/"+ this.$route.params.UUID;
 		}
 					
 		
@@ -102,8 +73,9 @@ export default {
 		this.getVote(this.uuid);
 	},
 	watch: {
-		uuid: function() {
-			this.getVote(this.uuid);
+		vote: function() {
+			this.fields[0].value = this.vote.title,
+			this.fields[1].value = this.vote.description
 		}
 	},
 }

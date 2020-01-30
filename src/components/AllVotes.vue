@@ -39,12 +39,7 @@ export default {
 	}),
 	methods: {
 		setdata(){
-			this.$http.get('http://localhost:8011/votes/',{headers: {Authorization: "Bearer "+localStorage.getItem("userToken") }})
-				.then((result) => {
-					this.votes = result.body;
-				}).catch((err) => {
-					alert(err);
-				});
+			this.$store.dispatch('votes/getvotes',{vm:this});
 		}
 	},
 	mounted() {
