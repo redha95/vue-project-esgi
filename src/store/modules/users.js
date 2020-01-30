@@ -42,6 +42,20 @@ export default {
         }, (error) => {
           commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data.msg })
         });
+      },
+      updateuser({commit}, payload) {
+        usersApi.updateUser(payload.user,payload.uuid)
+        .then((response) =>  {
+          commit('userUpdate',{
+            first_name: response.data.first_name,				
+            last_name: response.data.last_name,
+            email: response.data.email,
+            uuid: payload.uuid,
+            vm: payload.vm
+          })
+        }, (error) => {
+          commit('hasFailed' , { status: error.response.status, vm: payload.vm, error: error.response.data.msg })
+        });
       }
     },
     mutations: {
@@ -114,6 +128,16 @@ export default {
       },
       userList(state, payload) {
         payload.vm.user = payload.result.data;
+      },
+      userUpdate(state, payload) {
+        payload.vm.$notify({
+          group: 'foo',
+          title: 'Succès',
+          type: 'success',
+          duration:5000,
+          text: 'Vous venez de modifier votre profil!'
+        });
+        payload.vm.$router.push({ name: 'ProfilUser', params: { UUID: payload.uuid }})
       }
     }
 }

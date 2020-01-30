@@ -67,36 +67,7 @@ export default {
 	},
 	methods: {
 		handleSubmit: function(e) {
-			//let token = localStorage.getItem("userToken");
-			//this.$notify({title:'dsf',duration:5000,text:this.$route.params.UUID})
-			this.$http.put('http://localhost:8011/users/'+this.uuid,{
-					first_name: e.nom,				
-					last_name: e.prenom,
-					email: e.email
-					},{
-					headers: {
-						Authorization: "Bearer " + this.token
-					}
-				})
-				.then(() => {
-					this.$notify({
-						group: 'foo',
-						title: 'Succès',
-						type: 'success',
-						duration:5000,
-						text: 'Vous venez de modifier votre profil!'
-					});
-					this.$router.push({ name: 'ProfilUser', params: { UUID: this.uuid }})
-				}).catch((err) => {
-					
-					this.$notify({
-						group: 'foo',
-						title: 'Erreur fonctionnelle',
-						type: 'warn',
-						duration:5000,
-						text: err
-					});
-				});
+			this.$store.dispatch('users/updateuser',{user:e,uuid:this.uuid,vm:this});
 		},
 		setdataprofil(uuid) {
 			this.$store.dispatch('users/getuser',{uuid:uuid,vm:this});
